@@ -108,7 +108,11 @@ impl PhysicalDevice {
         unsafe { instance.get_raw().enumerate_physical_device_groups(out) }
     }
 
-    pub fn get_raw(&self) -> vk::PhysicalDevice {
+    /// Returns Vulkan handle.
+    /// # Safety
+    /// When no reference to Self left, returned object will be destroyed and will not be valid.
+    /// If returned object will be destroyed explicitly, than all clones of Self will become not valid.
+    pub unsafe fn get_raw(&self) -> vk::PhysicalDevice {
         self.handle
     }
 

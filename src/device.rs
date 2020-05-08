@@ -34,10 +34,10 @@ impl RaiiDevice {
         &self.pdevice
     }
 
-    /// Returns reference to ash::Device object.
+    /// Returns Vulkan handle.
     /// # Safety
-    /// When no reference to Self left, returned device object will be destroyed and will not be valid.
-    /// If returned device will be destroyed explicitly, than all clones of Self will become not valid.
+    /// When no reference to Self left, returned object will be destroyed and will not be valid.
+    /// If returned object will be destroyed explicitly, than all clones of Self will become not valid.
     pub unsafe fn get_raw(&self) -> &ash::Device {
         &self.handle
     }
@@ -74,10 +74,10 @@ impl Device {
         &self.raii_device.get_physical_device()
     }
 
-    /// Returns reference to ash::Device object.
+    /// Returns Vulkan handle.
     /// # Safety
-    /// When no reference to Self left, returned device object will be destroyed and will not be valid.
-    /// If returned device will be destroyed explicitly, than all clones of Self will become not valid.
+    /// When no reference to Self left, returned object will be destroyed and will not be valid.
+    /// If returned object will be destroyed explicitly, than all clones of Self will become not valid.
     pub unsafe fn get_raw(&self) -> &ash::Device {
         &self.raii_device.get_raw()
     }

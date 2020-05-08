@@ -21,10 +21,10 @@ impl RaiiInstance {
         &self.entry
     }
 
-    /// Returns reference to ash::Insance object.
+    /// Returns Vulkan handle.
     /// # Safety
-    /// When no reference to Self left, returned instance object will be destroyed and will not be valid.
-    /// If returned instance will be destroyed explicitly, than all clones of Self will become not valid.
+    /// When no reference to Self left, returned object will be destroyed and will not be valid.
+    /// If returned object will be destroyed explicitly, than all clones of Self will become not valid.
     pub unsafe fn get_raw(&self) -> &ash::Instance {
         &self.handle
     }
@@ -56,10 +56,10 @@ impl Instance {
         &self.raii_instance.get_entry()
     }
 
-    /// Returns reference to ash::Insance object.
+    /// Returns Vulkan handle.
     /// # Safety
-    /// When no reference to Self left, returned instance object will be destroyed and will not be valid.
-    /// If returned instance will be destroyed explicitly, than all clones of Self will become not valid.
+    /// When no reference to Self left, returned object will be destroyed and will not be valid.
+    /// If returned object will be destroyed explicitly, than all clones of Self will become not valid.
     pub unsafe fn get_raw(&self) -> &ash::Instance {
         self.raii_instance.get_raw()
     }
