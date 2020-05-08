@@ -3,12 +3,12 @@ use crate::util::Shared;
 use ash::version::{EntryV1_0, InstanceV1_0};
 use ash::vk;
 
-struct AutoDestroyInstance {
+struct RaiiInstance {
     entry: Entry,
     handle: ash::Instance,
 }
 
-impl AutoDestroyInstance {
+impl RaiiInstance {
     pub fn new(
         entry: Entry,
         create_info: &vk::InstanceCreateInfo,
@@ -30,7 +30,7 @@ impl AutoDestroyInstance {
     }
 }
 
-impl Drop for AutoDestroyInstance {
+impl Drop for RaiiInstance {
     fn drop(&mut self) {
         unsafe {
             self.handle.destroy_instance(None);
@@ -40,7 +40,7 @@ impl Drop for AutoDestroyInstance {
 
 #[derive(Clone)]
 pub struct Instance {
-    raii_instance: Shared<AutoDestroyInstance>,
+    raii_instance: Shared<RaiiInstance>,
 }
 
 impl Instance {
@@ -48,7 +48,7 @@ impl Instance {
         entry: Entry,
         create_info: &vk::InstanceCreateInfo,
     ) -> Result<Self, ash::InstanceError> {
-        let raii_instance = Shared::new(AutoDestroyInstance::new(entry, create_info)?);
+        let raii_instance = Shared::new(RaiiInstance::new(entry, create_info)?);
         Ok(Self { raii_instance })
     }
 
